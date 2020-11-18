@@ -1,33 +1,17 @@
 from six.moves import urllib
 from bs4 import BeautifulSoup
-import json
 import re
 
-datos = urllib.request.urlopen("https://www.youtube.com/playlist?list=PLBdkl5-ytBTwBjlnOh_rOcLy1NlFQ4Q4Q").read().decode('utf-8')
-
-#k = 0
+datos = urllib.request.urlopen("https://www.youtube.com/playlist?list=PL0ONFXpPDe_mtm3ciwL-v7EE-7yLHDlP8").read().decode('utf-8')
 
 soup = BeautifulSoup(datos, 'lxml')
 
 tag = soup.find_all('script')[26]
 
-data = re.search(".\"text\":\"11\".,.\"text\":\" videos\".", tag.string)
+data = re.search(".\"text\":\"[0-9]+\".,.\"text\":\" videos\".", tag.string)
 
 if data:
+	data = re.search('[0-9]+', data.group(0))
 	print(data.group(0))
 
-#for tag in soup.find_all('script'):
-#
-#	k = k + 1
-#
-#	k = str(k)
-#
-#	print "[ETIQUETA " + k + "]"
-#	print (tag)
-#	k = int(k)
-
-#print ( soup.find(id="stats") )
-
-# "stats":[{"runs":[{"text":"11"},{"text":" videos"}]}
-# {"runs":[{"text":"11"},{"text":" videos"}]}
 # {"text":"11"},{"text":" videos"}
