@@ -11,9 +11,10 @@ soup = BeautifulSoup(datos, 'lxml')
 
 tag = soup.find_all('script')[26]
 
-data = re.search(".\"text\":\"11\".,.\"text\":\" videos\".", str(tag))
+data = re.search(".\"text\":\"11\".,.\"text\":\" videos\".", tag.string)
 
-print(data)
+if data:
+	print(data.group(0))
 
 #for tag in soup.find_all('script'):
 #
